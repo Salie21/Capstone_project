@@ -1,0 +1,10 @@
+{
+  "name": "airbnb-capstone",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node Backend/server.js"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
