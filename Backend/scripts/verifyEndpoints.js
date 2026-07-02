@@ -1,6 +1,11 @@
-/*creates a constant called API_URL that stores the backend server's URL
-File is used for testing 
-*/
+/*
+ * This file is used to test the application's API endpoints.
+ * It sends HTTP requests to the backend and verifies that each
+ * endpoint returns the expected response status.
+ */
+
+// Set the backend API URL from an environment variable,
+// or use the local development server if none is provided.
 const API_URL = process.env.API_URL || "http://localhost:5000";
 
 const test = async (name, request, expectedStatus) => {
