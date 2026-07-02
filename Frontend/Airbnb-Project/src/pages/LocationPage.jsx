@@ -5,13 +5,15 @@ import Header from '../Components/Header.jsx'
 import LocationCard from '../Components/LocationCard.jsx'
 import './LocationPage.css'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 const LocationPage = () => {
   const [listings, setListings] = useState([])
   const { location } = useParams()
 
   useEffect(() => {
     const fetchListings = async () => {
-      const response = await axios.get('http://localhost:5000/api/accommodations')
+      const response = await axios.get(`${API_URL}/api/accommodations`)
       setListings(response.data)
     }
     fetchListings()

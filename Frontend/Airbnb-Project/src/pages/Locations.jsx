@@ -4,6 +4,8 @@ import axios from 'axios'
 import LocationCard from '../Components/LocationCard.jsx'
 import './Locations.css'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 const Locations = () => {
   const [searchParams] = useSearchParams()
   const selectedLocation = searchParams.get('location') || ''
@@ -13,9 +15,10 @@ const Locations = () => {
   useEffect(() => {
     const getListings = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/accommodations')
+        const response = await axios.get(`${API_URL}/api/accommodations`)
         setListings(response.data)
-      } catch {
+      } catch (err) {
+        console.error(err)
         setError('Could not load saved locations.')
       }
     }

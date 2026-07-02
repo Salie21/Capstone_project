@@ -5,6 +5,8 @@ import axios from 'axios'
 import './Login.css'
 import logo from '../assets/airbnb.svg'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -27,7 +29,7 @@ const Login = () => {
     setIsLoading(true)
 
     try {
-      const response = await axios.post('http://localhost:5000/api/users/login', {
+      const response = await axios.post(`${API_URL}/api/users/login`, {
         username: trimmedUsername,
         password
       })

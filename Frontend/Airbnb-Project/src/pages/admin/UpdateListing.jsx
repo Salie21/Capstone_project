@@ -4,6 +4,8 @@ import axios from 'axios'
 import AdminHeader from '../../Components/AdminHeader'
 import './Createlisting.css'
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 const UpdateListing = () => {
   const navigate = useNavigate()
   const { id } = useParams()
@@ -32,7 +34,7 @@ const UpdateListing = () => {
   useEffect(() => {
     const getListing = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/accommodations/${id}`)
+        const response = await axios.get(`${API_URL}/api/accommodations/${id}`)
         const listing = response.data
 
         setFormData({
@@ -76,11 +78,7 @@ const UpdateListing = () => {
 
   const handleAddAmenity = () => {
     const amenity = amenityInput.trim()
-
-    if (!amenity) {
-      return
-    }
-
+    if (!amenity) return
     setAmenities([...amenities, amenity])
     setAmenityInput('')
   }
@@ -90,39 +88,18 @@ const UpdateListing = () => {
   }
 
   const validateForm = () => {
-    if (formData.title.trim().length < 3) {
-      return 'Title must be at least 3 characters'
-    }
-
-    if (formData.description.trim().length < 10) {
-      return 'Description must be at least 10 characters'
-    }
-
-    if (Number(formData.price) <= 0) {
-      return 'Price must be more than 0'
-    }
-
-    if (Number(formData.guests) <= 0) {
-      return 'Guests must be more than 0'
-    }
-
-    if (Number(formData.bedrooms) <= 0) {
-      return 'Bedrooms must be more than 0'
-    }
-
-    if (Number(formData.bathrooms) <= 0) {
-      return 'Bathrooms must be more than 0'
-    }
-
+    if (formData.title.trim().length < 3) return 'Title must be at least 3 characters'
+    if (formData.description.trim().length < 10) return 'Description must be at least 10 characters'
+    if (Number(formData.price) <= 0) return 'Price must be more than 0'
+    if (Number(formData.guests) <= 0) return 'Guests must be more than 0'
+    if (Number(formData.bedrooms) <= 0) return 'Bedrooms must be more than 0'
+    if (Number(formData.bathrooms) <= 0) return 'Bathrooms must be more than 0'
     if (
       Number(formData.weeklyDiscount) < 0 ||
       Number(formData.cleaningFee) < 0 ||
       Number(formData.serviceFee) < 0 ||
       Number(formData.occupancyTaxes) < 0
-    ) {
-      return 'Fees and discount cannot be negative'
-    }
-
+    ) return 'Fees and discount cannot be negative'
     return ''
   }
 
@@ -131,7 +108,6 @@ const UpdateListing = () => {
     setError('')
 
     const validationError = validateForm()
-
     if (validationError) {
       setError(validationError)
       return
@@ -139,11 +115,11 @@ const UpdateListing = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/accommodations/${id}`,
+        `${API_URL}/api/accommodations/${id}`,
         {
           ...formData,
           amenities,
-          images: images.map((image) => image.name),
+          images: images.map((image) => image.name || image),
         },
         {
           headers: {
@@ -151,7 +127,6 @@ const UpdateListing = () => {
           },
         }
       )
-
       navigate('/admin/listings')
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to update listing')
@@ -212,7 +187,6 @@ const UpdateListing = () => {
                   />
                   Enhanced Cleaning
                 </label>
-
                 <label>
                   <input
                     type="checkbox"
@@ -228,9 +202,7 @@ const UpdateListing = () => {
                 Amenities
                 <div className="create_listing_amenities">
                   <input value={amenityInput} onChange={(event) => setAmenityInput(event.target.value)} />
-                  <button type="button" onClick={handleAddAmenity}>
-                    Add
-                  </button>
+                  <button type="button" onClick={handleAddAmenity}>Add</button>
                 </div>
               </label>
 
@@ -259,7 +231,6 @@ const UpdateListing = () => {
                     required
                   />
                 </label>
-
                 <label>
                   Type
                   <select name="type" value={formData.type} onChange={handleChange} required>
@@ -279,12 +250,10 @@ const UpdateListing = () => {
                   Guests
                   <input type="number" name="guests" value={formData.guests} onChange={handleChange} onFocus={selectDefaultNumber} min="1" required />
                 </label>
-
                 <label>
                   Bedrooms
                   <input type="number" name="bedrooms" value={formData.bedrooms} onChange={handleChange} onFocus={selectDefaultNumber} min="1" required />
                 </label>
-
                 <label>
                   Bathrooms
                   <input type="number" name="bathrooms" value={formData.bathrooms} onChange={handleChange} onFocus={selectDefaultNumber} min="1" required />
@@ -296,17 +265,14 @@ const UpdateListing = () => {
                   Weekly Discount
                   <input type="number" name="weeklyDiscount" value={formData.weeklyDiscount} onChange={handleChange} onFocus={selectDefaultNumber} min="0" required />
                 </label>
-
                 <label>
                   Cleaning Fee
                   <input type="number" name="cleaningFee" value={formData.cleaningFee} onChange={handleChange} onFocus={selectDefaultNumber} min="0" required />
                 </label>
-
                 <label>
                   Service Fee
                   <input type="number" name="serviceFee" value={formData.serviceFee} onChange={handleChange} onFocus={selectDefaultNumber} min="0" required />
                 </label>
-
                 <label>
                   Occupancy Taxes
                   <input type="number" name="occupancyTaxes" value={formData.occupancyTaxes} onChange={handleChange} onFocus={selectDefaultNumber} min="0" required />
@@ -328,9 +294,7 @@ const UpdateListing = () => {
 
               <div className="create_listing_buttons">
                 <button type="submit">Update</button>
-                <button type="button" onClick={() => navigate('/admin/listings')}>
-                  Cancel
-                </button>
+                <button type="button" onClick={() => navigate('/admin/listings')}>Cancel</button>
               </div>
             </section>
           </form>
