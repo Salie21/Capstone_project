@@ -1,3 +1,4 @@
+// Imports Router from react and pages from the project
 import { Routes, Route, useLocation } from "react-router-dom"
 import Header from "./Components/Header.jsx"
 import Home from "./pages/Home.jsx"
@@ -13,6 +14,7 @@ import LocationPage from "./pages/LocationPage.jsx"
 import NotFound from "./pages/NotFoundPage.jsx"
 import ListingDetails from "./pages/admin/ListingDetails.jsx"
 
+//Defines all the loctaions used for the app
 const locations = [
   'All locations',
   'Paris, France',
@@ -40,7 +42,7 @@ function App() {
   const isListingPage = location.pathname.toLowerCase().startsWith("/listing/")
 
   return (
-    <>
+    <></>
       {!isAdminPage && !isLoginPage && (
         <Header
           logoType={isHomePage ? "white" : "default"}
@@ -49,6 +51,7 @@ function App() {
           compactSearch={isListingPage}
         />
       )}
+  //Define all application routes
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
