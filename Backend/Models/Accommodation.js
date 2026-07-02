@@ -1,5 +1,7 @@
+//Imports Moongoose
 const mongoose = require("mongoose");
 
+//Creates an accomodation table for our database
 const accommodationSchema = new mongoose.Schema(
   {
     title: {
