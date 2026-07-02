@@ -1,3 +1,4 @@
+/* Styling for Inspiration for future getaways */ 
 .getaways {
   width: auto;
   margin: 0 48px 72px;
@@ -5,6 +6,7 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* All texts listed as h2*/ 
 .getaways h2 {
   margin: 0 0 28px;
   color: #111;
