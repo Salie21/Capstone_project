@@ -2,7 +2,8 @@
   "name": "airbnb-capstone",
   "version": "1.0.0",
   "scripts": {
-    "start": "node Backend/server.js"
+    "start": "node Backend/server.js",
+    "heroku-postbuild": "cd Frontend/Airbnb-Project && npm install && npm run build"
   },
   "engines": {
     "node": "20.x"

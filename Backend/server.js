@@ -2,7 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
-require("dotenv").config();
+const dotenv = require("dotenv");
+const path = require("path");
+
+dotenv.config();
 
 const User = require("./Models/User");
 const userRoutes = require("./Routes/userRoutes");
@@ -16,14 +19,19 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// API Routes
 app.use("/api/users", userRoutes);
 app.use("/api/accommodations", accommodationRoutes);
 app.use("/api/reservations", reservationRoutes);
 
-app.get("/", (req, res) => {
-  res.send("Airbnb backend is running");
-});
+// Path to the React build
+const frontendPath = path.join(
+  __dirname,
+  "../Frontend/Airbnb-Project/dist"
+);
+
+// Serve static React files
+app.use(express.static(frontendPath));
 
 // Create demo users with hashed passwords
 const createDemoUsers = async () => {
@@ -33,7 +41,6 @@ const createDemoUsers = async () => {
       password: "password123",
       role: "user",
     },
-
     {
       username: "Jane Doe",
       password: "password321",
@@ -42,16 +49,35 @@ const createDemoUsers = async () => {
   ];
 
   for (const user of users) {
-    const existingUser = await User.findOne({ username: user.username });
+    const existingUser = await User.findOne({
+      username: user.username,
+    });
 
     if (!existingUser) {
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(user.password, salt);
-      await User.create({ ...user, password: hashedPassword });
+
+      await User.create({
+        ...user,
+        password: hashedPassword,
+      });
+
       console.log(`Demo user created: ${user.username}`);
     }
   }
 };
+
+// React catch-all route
+app.get("*", (req, res) => {
+  // Don't intercept API requests
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({
+      message: "API route not found",
+    });
+  }
+
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
 
 // Connect to MongoDB
 mongoose
@@ -61,11 +87,13 @@ mongoose
   })
   .then(async () => {
     console.log("Connected to MongoDB");
+
     await createDemoUsers();
+
     app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
+      console.log(`Server running on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.log("MongoDB connection error:", error.message);
+    console.error("MongoDB connection error:", error.message);
   });
