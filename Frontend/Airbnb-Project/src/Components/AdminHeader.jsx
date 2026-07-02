@@ -1,3 +1,5 @@
+/*Import useState hook to control the visibility of the dropdown menu
+Icons needed for the project */
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
@@ -6,6 +8,7 @@ import { useAuth } from '../context/AuthContext'
 import logo from '../assets/airbnb.svg'
 import './AdminHeader.css'
 
+//Code used to display the users name wheb logged in
 const getName = (user) => {
   if (!user) {
     return 'Host'
@@ -14,6 +17,7 @@ const getName = (user) => {
   return user.username || 'Host'
 }
 
+//Retrives the logged-in users information
 const AdminHeader = () => {
   const { user, logout } = useAuth()
   const [showMenu, setShowMenu] = useState(false)
@@ -24,12 +28,16 @@ const AdminHeader = () => {
     navigate('/login')
   }
 
+  // returns header and logo
   return (
     <header className="admin_header">
       <Link to="/home" className="admin_logo_link">
         <img src={logo} alt="Airbnb logo" className="admin_logo" />
       </Link>
 
+      /*Display the welcome and user name 
+      Uses the imported mui icons
+      /*
       <div className="admin_profile_area">
         <span>Welcome, {getName(user)}</span>
         <button
