@@ -478,6 +478,12 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
           </div>
         )}
 
+        {isHomeHeader && (
+          <div className="header_top_search header_home_search">
+            {compactSearchForm}
+          </div>
+        )}
+
         <div className='header_right' ref={profileRef}>
           {user ? (
             <span>Hello, {user.username}</span>

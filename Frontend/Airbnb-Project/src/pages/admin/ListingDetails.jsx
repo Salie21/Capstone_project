@@ -336,7 +336,9 @@ const ListingDetails = () => {
               </div>
               <div className="host-avatar-wrap">
                 <div className="host-avatar">{hostName.charAt(0)}</div>
-                <img className="host-badge" src={Badge} alt="Verified host badge" />
+                <div className="host-badge-wrap">
+                  <img className="host-badge" src={Badge} alt="Verified host badge" />
+                </div>
               </div>
             </section>
 
@@ -479,7 +481,9 @@ const ListingDetails = () => {
             <section className="listing-section host-profile">
               <div className="host-avatar-wrap host-avatar-wrap-large">
                 <div className="host-avatar large">{hostName.charAt(0)}</div>
-                <img className="host-badge host-badge-large" src={Badge} alt="Verified host badge" />
+                <div className="host-badge-wrap host-badge-wrap-large">
+                  <img className="host-badge" src={Badge} alt="Verified host badge" />
+                </div>
               </div>
               <div>
                 <h3>Hosted by {hostName}</h3>

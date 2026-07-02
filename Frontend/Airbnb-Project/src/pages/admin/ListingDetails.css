@@ -184,15 +184,45 @@
   position: relative;
   display: inline-flex;
   flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.host-avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #222;
+  color: rgb(34, 34, 34);
+  font-family: "Airbnb Cereal VF", Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  text-size-adjust: 100%;
+  unicode-bidi: isolate;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.host-badge-wrap {
+  position: absolute;
+  right: -4px;
+  bottom: -2px;
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .host-badge {
-  position: absolute;
-  right: -2px;
-  bottom: -2px;
-  width: 18px;
-  height: auto;
-  transform: translate(6%, 6%);
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .host-avatar.large {
@@ -202,12 +232,21 @@
 
 .host-avatar-wrap-large {
   margin-right: 8px;
+  width: 64px;
+  height: 64px;
+}
+
+.host-badge-wrap-large {
+  right: -4px;
+  bottom: -4px;
+  width: 20px;
+  height: 20px;
 }
 
 .host-badge-large {
-  right: 3px;
-  bottom: -7px;
-  width: 18px;
+  display: block;
+  width: 20px;
+  height: 20px;
 }
 
 .feature-list {
