@@ -1,0 +1,93 @@
+.discover_page {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  background-color: white;
+  padding: 44px 32px 56px;
+}
+
+.discover_heading {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.discover_card,
+.discover_Container {
+  min-height: 626px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  padding: 72px;
+  border-radius: 8px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-sizing: border-box;
+}
+
+.discover_card {
+  background-image: url('../assets/Outdoors.jpg');
+}
+
+.discover_Container {
+  background-image: url('../assets/images.jpg');
+}
+
+.discover_card h3,
+.discover_Container h3 {
+  max-width: 330px;
+  margin: 0;
+  color: #fff;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.discover_card button,
+.discover_Container button {
+  border: 0;
+  border-radius: 6px;
+  background-color: #fff;
+  color: #222;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 13px 22px;
+}
+
+.discover_card button:hover,
+.discover_Container button:hover {
+  background-color: #ff385c;
+  
+}
+
+@media (max-width: 900px) {
+  .discover_page {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .discover_page {
+    padding: 34px 18px 44px;
+  }
+
+  .discover_card,
+  .discover_Container {
+    min-height: 420px;
+    padding: 34px;
+  }
+
+  .discover_card h3,
+  .discover_Container h3 {
+    font-size: 32px;
+  }
+}

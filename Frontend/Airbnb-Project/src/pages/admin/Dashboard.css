@@ -1,0 +1,270 @@
+.admin_page {
+  min-height: 100vh;
+  background: #fff;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.admin_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 82px;
+  padding: 0 28px;
+  background: #fff;
+}
+
+.admin_logo_link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin_logo {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+.admin_profile_area {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+}
+
+.admin_profile_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 72px;
+  height: 42px;
+  padding: 0 10px 0 14px;
+  border: 1px solid #dde1e6;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+.admin_profile_button svg:first-child {
+  font-size: 22px;
+}
+
+.admin_profile_button svg:last-child {
+  color: #9ca3af;
+  font-size: 30px;
+}
+
+.admin_logout {
+  border: 0;
+  background: transparent;
+  color: #e23055;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.admin_nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 76px;
+  padding: 0 24px;
+}
+
+.admin_nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 18px;
+  border: 1px solid #dfe3e8;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.admin_main {
+  padding: 28px 24px 80px;
+}
+
+.admin_main h1 {
+  margin: 0 0 42px;
+  text-align: center;
+  font-size: 24px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.admin_error,
+.admin_empty {
+  margin: 0 0 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.admin_error {
+  color: #d93025;
+  font-weight: 700;
+}
+
+.admin_empty {
+  color: #717171;
+}
+
+.admin_listing_stack {
+  display: grid;
+  gap: 22px;
+}
+
+.admin_listing_card {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 180px;
+  align-items: center;
+  gap: 72px;
+  min-height: 270px;
+  padding: 16px 92px 16px 72px;
+  border: 1px solid #dedede;
+  border-radius: 7px;
+  background: #fff;
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.09);
+}
+
+.admin_listing_media_column {
+  display: grid;
+  gap: 12px;
+  width: 240px;
+}
+
+.admin_listing_media {
+  width: 240px;
+  height: 158px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #f3f4f6;
+}
+
+.admin_listing_media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.admin_update_button,
+.admin_delete_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin_update_button {
+  background: #4354f4;
+}
+
+.admin_delete_button {
+  background: #e93258;
+}
+
+.admin_delete_button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.admin_listing_info {
+  min-width: 0;
+}
+
+.admin_listing_info p,
+.admin_listing_info span {
+  display: block;
+  margin: 0;
+  color: #717171;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.admin_listing_info h2 {
+  margin: 5px 0 20px;
+  color: #333;
+  font-size: 22px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.admin_listing_line {
+  width: 36px;
+  height: 1px;
+  margin: 0 0 16px;
+  background: #dddddd;
+}
+
+.admin_listing_rating {
+  margin-top: 40px !important;
+  color: #717171 !important;
+}
+
+.admin_listing_rating span {
+  display: inline;
+  color: #ffb400;
+}
+
+.admin_listing_price {
+  align-self: center;
+  color: #333;
+  font-size: 18px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .admin_header {
+    padding: 0 18px;
+  }
+
+  .admin_profile_area span {
+    display: none;
+  }
+
+  .admin_nav {
+    gap: 10px;
+    padding: 18px;
+    overflow-x: auto;
+  }
+
+  .admin_nav a {
+    flex: none;
+  }
+
+  .admin_main {
+    padding: 28px 18px 60px;
+  }
+
+  .admin_listing_card {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 18px;
+  }
+
+  .admin_listing_media_column,
+  .admin_listing_media {
+    width: 100%;
+  }
+
+  .admin_listing_price {
+    justify-self: start;
+  }
+}

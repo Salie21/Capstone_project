@@ -1,0 +1,93 @@
+.admin_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 82px;
+  padding: 0 28px;
+  background: #fff;
+}
+
+.admin_logo_link {
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin_logo {
+  width: 120px;
+  height: auto;
+  display: block;
+}
+
+.admin_profile_area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 14px;
+}
+
+.admin_profile_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 72px;
+  height: 42px;
+  padding: 0 10px 0 14px;
+  border: 1px solid #dde1e6;
+  border-radius: 999px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+.admin_profile_button svg:first-child {
+  font-size: 22px;
+}
+
+.admin_profile_button svg:last-child {
+  color: #9ca3af;
+  font-size: 30px;
+}
+
+.admin_dropdown {
+  position: absolute;
+  top: 52px;
+  right: 0;
+  z-index: 5;
+  width: 180px;
+  padding: 8px 0;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.admin_dropdown a,
+.admin_dropdown button {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  border: 0;
+  background: transparent;
+  color: #222;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  text-decoration: none;
+}
+
+.admin_dropdown a:hover,
+.admin_dropdown button:hover {
+  background: #f7f7f7;
+}
+
+@media (max-width: 720px) {
+  .admin_header {
+    padding: 0 18px;
+  }
+
+  .admin_profile_area span {
+    display: none;
+  }
+}
