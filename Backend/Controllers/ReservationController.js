@@ -1,11 +1,14 @@
+//Used to import the MongoDB models
 const Reservation = require("../Models/Reservation");
 const Accommodation = require("../Models/Accommodation");
 
+//Checks the data before it is saved to the database 
 const validateReservation = (data) => {
   if (!data.bookedBy || data.bookedBy.trim().length < 2) {
     return "Booked by name is required";
   }
 
+  //checks for property 
   if (!data.property) {
     return "Property is required";
   }
@@ -21,6 +24,7 @@ const validateReservation = (data) => {
   return "";
 };
 
+//Creates a reservation (CRUD Operations)
 const createReservation = async (req, res) => {
   try {
     const validationError = validateReservation(req.body);
@@ -28,19 +32,22 @@ const createReservation = async (req, res) => {
     if (validationError) {
       return res.status(400).json({ message: validationError });
     }
-
+    
+//Finds the host
     let host = req.body.host;
-
+    
+// Used to retrieve the accomodation from MongoDB
     if (req.body.accommodation) {
       const accommodation = await Accommodation.findById(req.body.accommodation);
 
       if (!accommodation) {
         return res.status(404).json({ message: "Accommodation not found" });
       }
-
+// Assigns the correct host
       host = accommodation.host;
     }
-
+    
+//Creates reservation 
     const reservation = await Reservation.create({
       ...req.body,
       user: req.user.id,
@@ -53,6 +60,7 @@ const createReservation = async (req, res) => {
   }
 };
 
+//Fetches all reservation of the loogged in host
 const getHostReservations = async (req, res) => {
   try {
     const hostAccommodations = await Accommodation.find({ host: req.user.id });
@@ -70,6 +78,7 @@ const getHostReservations = async (req, res) => {
   }
 };
 
+//Gets reservition 
 const getUserReservations = async (req, res) => {
   try {
     const reservations = await Reservation.find({ user: req.user.id });
@@ -79,6 +88,7 @@ const getUserReservations = async (req, res) => {
   }
 };
 
+//Deletes a resrvation 
 const deleteReservation = async (req, res) => {
   try {
     const reservation = await Reservation.findById(req.params.id);
@@ -86,7 +96,7 @@ const deleteReservation = async (req, res) => {
     if (!reservation) {
       return res.status(404).json({ message: "Reservation not found" });
     }
-
+// Ihost is used for autherization 
     const isUserReservation = reservation.user && reservation.user.toString() === req.user.id;
     const isHostReservation = reservation.host && reservation.host.toString() === req.user.id;
 
@@ -102,6 +112,7 @@ const deleteReservation = async (req, res) => {
   }
 };
 
+//Exports all the reservation controller
 module.exports = {
   createReservation,
   getHostReservations,
