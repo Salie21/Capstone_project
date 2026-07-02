@@ -1,5 +1,8 @@
+//The following import the Accomidation model which will interact with the database
 const Accommodation = require("../Models/Accommodation");
 
+/*Code is used to identify the featured accomidation listings
+The listing is automatically assigned to the host who logs in*/
 const featuredHostListingQuery = {
   $or: [
     { title: /Central\s+Studio\s+Apt.*Sandton\s+City.*Rosebank.*Pool.*Gym/i },
@@ -7,15 +10,18 @@ const featuredHostListingQuery = {
   ],
 };
 
+//Assigns listings to a specific host
 const assignFeaturedListingsToHost = async (hostId) => {
   await Accommodation.updateMany(featuredHostListingQuery, { $set: { host: hostId } });
 };
 
+//Confirms accomidation data before creating or updating a list
 const validateAccommodation = (data) => {
   if (!data.title || data.title.trim().length < 3) {
     return "Title must be at least 3 characters";
   }
 
+  //The code ensures the user provides a location aand returns 
   if (!data.location) {
     return "Location is required";
   }
@@ -24,10 +30,12 @@ const validateAccommodation = (data) => {
     return "Description must be at least 10 characters";
   }
 
+  //Ensures the accomidation type exists
   if (!data.type) {
     return "Type is required";
   }
 
+  // Used for price, must be greater than 0
   if (Number(data.price) <= 0) {
     return "Price must be more than 0";
   }
@@ -48,14 +56,21 @@ const validateAccommodation = (data) => {
   return "";
 };
 
+
+/**
+ * Creates a new accommodation listing.
+ * The logged-in user is automatically assigned as the host.
+ */
 const createAccommodation = async (req, res) => {
   try {
     const validationError = validateAccommodation(req.body);
-
+    
+//Check incoming data to ensure it's correct
     if (validationError) {
       return res.status(400).json({ message: validationError });
     }
-
+    
+//Saves new  accommodation
     const accommodation = await Accommodation.create({
       ...req.body,
       host: req.user.id,
@@ -67,6 +82,11 @@ const createAccommodation = async (req, res) => {
   }
 };
 
+
+/**
+ * Retrieves all accommodation listings.
+ * Host details are included using populate().
+ */
 const getAllAccommodations = async (req, res) => {
   try {
     const accommodations = await Accommodation.find().populate("host", "username email");
@@ -75,6 +95,8 @@ const getAllAccommodations = async (req, res) => {
     res.status(500).json({ message: "Could not get accommodations", error: error.message });
   }
 };
+
+//Retrives accomodation by id 
 
 const getAccommodation = async (req, res) => {
   try {
@@ -90,6 +112,7 @@ const getAccommodation = async (req, res) => {
   }
 };
 
+//Fetchs all accomodiation owned by a logged in host
 const getHostAccommodations = async (req, res) => {
   try {
     await assignFeaturedListingsToHost(req.user.id);
@@ -111,6 +134,10 @@ const claimFeaturedHostListings = async (req, res) => {
   }
 };
 
+/**
+ * Updates an existing accommodation.
+ * Only the owner of the listing is allowed to perform this action.
+ */
 const updateAccommodation = async (req, res) => {
   try {
     const validationError = validateAccommodation(req.body);
@@ -156,6 +183,7 @@ const deleteAccommodation = async (req, res) => {
       return res.status(403).json({ message: "You can only delete your own listings" });
     }
 
+    //Delete accomodation 
     await Accommodation.findByIdAndDelete(req.params.id);
 
     res.json({ message: "Accommodation deleted successfully" });
@@ -164,6 +192,7 @@ const deleteAccommodation = async (req, res) => {
   }
 };
 
+// Export controller functions for use in the accommodation routes  
 module.exports = {
   createAccommodation,
   getAllAccommodations,
