@@ -1,3 +1,8 @@
+/* =========================
+   Discover Page Layout
+   ========================= */
+
+/* Creates a two-column grid layout for the discover page */
 .discover_page {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -6,6 +11,7 @@
   padding: 44px 32px 56px;
 }
 
+/* Styles the main heading displayed at the top of the page */
 .discover_heading {
   grid-column: 1 / -1;
   margin: 0;
@@ -16,6 +22,11 @@
   line-height: 1.15;
 }
 
+/* =========================
+   Discover Cards
+   ========================= */
+
+/* Shared styling for both discover cards */
 .discover_card,
 .discover_Container {
   min-height: 626px;
@@ -32,14 +43,17 @@
   box-sizing: border-box;
 }
 
+/* Background image for the first discover card */
 .discover_card {
   background-image: url('../assets/Outdoors.jpg');
 }
 
+/* Background image for the second discover card */
 .discover_Container {
   background-image: url('../assets/images.jpg');
 }
 
+/* Styles the headings displayed inside each discover card */
 .discover_card h3,
 .discover_Container h3 {
   max-width: 330px;
@@ -51,6 +65,7 @@
   line-height: 1.05;
 }
 
+/* Styles the buttons displayed inside the discover cards */
 .discover_card button,
 .discover_Container button {
   border: 0;
@@ -63,18 +78,24 @@
   padding: 13px 22px;
 }
 
+/* Changes the button background colour when hovered over */
 .discover_card button:hover,
 .discover_Container button:hover {
   background-color: #ff385c;
-  
 }
 
+/* =========================
+   Responsive Design
+   ========================= */
+
+/* Display a single-column layout on tablets */
 @media (max-width: 900px) {
   .discover_page {
     grid-template-columns: 1fr;
   }
 }
 
+/* Reduce spacing and card size on smaller mobile devices */
 @media (max-width: 560px) {
   .discover_page {
     padding: 34px 18px 44px;
