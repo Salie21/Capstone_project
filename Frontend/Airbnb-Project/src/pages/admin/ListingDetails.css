@@ -1,5 +1,5 @@
 .listing-page {
-  background: #fafafa;
+  background: #fff;
   color: #222;
   font-family: Arial, Helvetica, sans-serif;
   min-height: 100vh;
@@ -35,15 +35,37 @@
 
 .listing-subtitle {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 6px;
   color: #222;
   font-size: 13px;
+  line-height: 1;
 }
 
 .rating-mark {
-  color: #808080;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: #222;
   font-weight: 600;
+}
+
+.rating-mark svg {
+  width: 14px;
+  height: 14px;
+  color: #717171;
+}
+
+.listing-subtitle span:not(:first-child)::before {
+  content: "·";
+  margin-right: 6px;
+  color: #717171;
+  text-decoration: none;
+}
+
+.listing-subtitle-link {
+  text-decoration: underline;
 }
 
 .listing-actions {
@@ -68,13 +90,13 @@
 .gallery-grid {
   position: relative;
   display: grid;
-  grid-template-columns: 2.4fr 1fr;
-  grid-template-rows: repeat(2, 220px);
-  gap: 10px;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: repeat(2, 210px);
+  gap: 8px;
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: 12px;
   margin-bottom: 36px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  background: #f7f7f7;
 }
 
 .gallery-grid img {
@@ -89,25 +111,12 @@
 }
 
 .gallery-main {
+  grid-column: 1 / 2;
   grid-row: 1 / span 2;
 }
 
 .gallery-grid img:not(.gallery-main) {
   min-height: 0;
-}
-
-.show-photos-btn {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
-  padding: 8px 12px;
-  border: 1px solid #222;
-  border-radius: 6px;
-  background: #fff;
-  color: #222;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: 600;
 }
 
 .listing-body {
@@ -171,9 +180,34 @@
   font-weight: 700;
 }
 
+.host-avatar-wrap {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.host-badge {
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+  width: 18px;
+  height: auto;
+  transform: translate(6%, 6%);
+}
+
 .host-avatar.large {
   width: 64px;
   height: 64px;
+}
+
+.host-avatar-wrap-large {
+  margin-right: 8px;
+}
+
+.host-badge-large {
+  right: 3px;
+  bottom: -7px;
+  width: 18px;
 }
 
 .feature-list {
@@ -183,9 +217,23 @@
 
 .feature-item {
   display: grid;
-  gap: 4px;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 4px 14px;
   color: #222;
   font-size: 14px;
+}
+
+.feature-item svg {
+  grid-row: 1 / span 2;
+  align-self: start;
+  width: 22px;
+  height: 22px;
+  color: #222;
+}
+
+.feature-item strong {
+  align-self: center;
+  line-height: 22px;
 }
 
 .feature-item span,
@@ -410,6 +458,25 @@
   border-bottom: 0;
 }
 
+.things-section {
+  border-bottom: 0;
+}
+
+.things-section > h3 {
+  margin-bottom: 24px;
+}
+
+.things-grid h4 {
+  margin: 0 0 14px;
+  color: #222;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.things-grid p + p {
+  margin-top: 10px;
+}
+
 .booking-card {
   position: static;
   padding: 28px;
@@ -529,6 +596,73 @@
   font-weight: 700;
 }
 
+.explore-options {
+  background: #f7f7f7;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.explore-options-inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 48px 24px 34px;
+}
+
+.explore-options h2 {
+  margin: 0 0 28px;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.explore-options h3 {
+  margin: 28px 0 18px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.explore-city-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));  gap: 40px;
+}
+
+.explore-column {
+  display: grid;
+  gap: 18px;
+}
+
+.explore-column a,
+.explore-breadcrumbs a {
+  color: #4b5563;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.explore-column a {
+  display: block;
+  padding: 6px 0;
+}
+
+.explore-column a:hover,
+.explore-breadcrumbs a:hover {
+  text-decoration: underline;
+}
+
+.explore-stays-grid {
+  margin-bottom: 28px;
+}
+
+.explore-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.explore-breadcrumbs span {
+  color: #717171;
+}
+
 @media (max-width: 900px) {
   .listing-body,
   .calendar-grid,
@@ -550,6 +684,11 @@
 
   .booking-card {
     position: static;
+  }
+
+  .explore-city-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 28px;
   }
 }
 
@@ -582,12 +721,16 @@
     height: 300px;
   }
 
-  .show-photos-btn {
-    right: 12px;
-    bottom: 12px;
-  }
-
   .amenities-grid {
     grid-template-columns: 1fr;
+  }
+
+  .explore-options-inner {
+    padding: 34px 18px 28px;
+  }
+
+  .explore-city-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
