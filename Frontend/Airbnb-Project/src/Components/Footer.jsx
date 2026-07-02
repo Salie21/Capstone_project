@@ -1,10 +1,14 @@
 import React from 'react'
+// Import stylesheet for footer 
 import './Footer.css'
+
+//Import icons for footer 
 import InstagramIcon from '@mui/icons-material/Instagram'
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded'
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 import TwitterIcon from '@mui/icons-material/Twitter'
 
+//Declare a variable called footerData 
 const footerData = [
   {
     title: 'Support',
@@ -66,7 +70,8 @@ const Footer = () => {
           </div>
         ))}
       </div>
-
+      
+//Copyright section togther with imported icons 
       <div className="footer_copyright">
         <p>© 2022 Airbnb, Inc. · Privacy · Terms · Sitemap</p>
         <div className="footer_meta">
