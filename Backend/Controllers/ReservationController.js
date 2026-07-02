@@ -57,7 +57,12 @@ const getHostReservations = async (req, res) => {
   try {
     const hostAccommodations = await Accommodation.find({ host: req.user.id });
     const accommodationIds = hostAccommodations.map((accommodation) => accommodation._id);
-    const reservations = await Reservation.find({ accommodation: { $in: accommodationIds } });
+    const reservations = await Reservation.find({
+      $or: [
+        { host: req.user.id },
+        { accommodation: { $in: accommodationIds } },
+      ],
+    });
 
     res.json(reservations);
   } catch (error) {

@@ -188,7 +188,7 @@ const DatesPopup = ({ monthDate, checkInDate, checkOutDate, activeDateField, onS
   )
 }
 
-const Header = ({ logoType = 'default', variant = 'default', locations = [], hideSearch = false })=>  {
+const Header = ({ logoType = 'default', variant = 'default', locations = [], hideSearch = false, compactSearch = false })=>  {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
   const currentLocation = useLocation()
@@ -229,6 +229,7 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
     : locationFromUrl || 'Where are you going?'
   const guestLabel = totalGuests === 0 ? 'Add guests' : `${totalGuests} guest${totalGuests === 1 ? '' : 's'}`
   const [showProfileMenu, setShowProfileMenu] = useState(false)
+  const [compactLocationInput, setCompactLocationInput] = useState(locationFromUrl)
   const checkInRef = useRef(null)
   const checkOutRef = useRef(null)
   const guestsRef = useRef(null)
@@ -251,7 +252,10 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
     setAdults(Number(adultsFromUrl) || 0)
     setChildren(Number(childrenFromUrl) || 0)
     setLocationWasCleared(false)
-  }, [matchingLocation, checkInFromUrl, checkOutFromUrl, adultsFromUrl, childrenFromUrl])
+    if (compactSearch) {
+      setCompactLocationInput(locationFromUrl)
+    }
+  }, [matchingLocation, checkInFromUrl, checkOutFromUrl, adultsFromUrl, childrenFromUrl, compactSearch, locationFromUrl])
 
   useEffect(() => {
     const closeDropdowns = (event) => {
@@ -389,32 +393,40 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
     setCalendarMonth(new Date(calendarMonth.getFullYear(), calendarMonth.getMonth() + 1, 1))
   }
 
-  const handleSearch = () => {
+  const handleSearch = (event) => {
+    if (event?.preventDefault) {
+      event.preventDefault()
+    }
+
     const params = new URLSearchParams()
-    const locationForSearch = selectedLocation
-      ? selectedLocation.split(',')[0]
-      : locationWasCleared
-        ? ''
-        : locationFromUrl
+    const locationForSearch = compactSearch
+      ? compactLocationInput.trim()
+      : selectedLocation
+        ? selectedLocation.split(',')[0]
+        : locationWasCleared
+          ? ''
+          : locationFromUrl
 
     if (locationForSearch) {
       params.set('location', locationForSearch)
     }
 
-    if (checkInDate) {
-      params.set('checkIn', formatDateParam(checkInDate))
-    }
+    if (!compactSearch) {
+      if (checkInDate) {
+        params.set('checkIn', formatDateParam(checkInDate))
+      }
 
-    if (checkOutDate) {
-      params.set('checkOut', formatDateParam(checkOutDate))
-    }
+      if (checkOutDate) {
+        params.set('checkOut', formatDateParam(checkOutDate))
+      }
 
-    if (adults > 0) {
-      params.set('adults', String(adults))
-    }
+      if (adults > 0) {
+        params.set('adults', String(adults))
+      }
 
-    if (children > 0) {
-      params.set('children', String(children))
+      if (children > 0) {
+        params.set('children', String(children))
+      }
     }
 
     setShowDates(false)
@@ -429,6 +441,22 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
     navigate('/login')
   }
 
+  const compactSearchForm = (
+    <form className="header_search_compact_form" onSubmit={handleSearch}>
+      <input
+        type="text"
+        value={compactLocationInput}
+        onChange={(event) => setCompactLocationInput(event.target.value)}
+        placeholder="Start your search"
+        className="header_compact_search_input"
+        aria-label="Search location"
+      />
+      <button type="submit" className="header_search_button" aria-label="Search stays">
+        <SearchIcon />
+      </button>
+    </form>
+  )
+
   return (
     <div className={`header ${isHomeHeader ? 'header_home' : ''}`}>
       <div className="header_top">
@@ -442,6 +470,12 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
             <a href="#">Experiences</a>
             <a href="#">Online Experiences</a>
           </nav>
+        )}
+
+        {compactSearch && (
+          <div className="header_top_search">
+            {compactSearchForm}
+          </div>
         )}
 
         <div className='header_right' ref={profileRef}>
@@ -484,7 +518,7 @@ const Header = ({ logoType = 'default', variant = 'default', locations = [], hid
         </div>
       </div>
 
-      {!hideSearch && (
+      {!hideSearch && !compactSearch && (
       <div className={`header_center ${isResultsHeader ? 'header_center_compact' : ''}`}>
         <div className="header_search_fields">
           {isResultsHeader ? (

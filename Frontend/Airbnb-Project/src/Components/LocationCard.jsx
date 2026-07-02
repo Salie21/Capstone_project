@@ -1,5 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+import FavoriteIcon from '@mui/icons-material/Favorite'
 import './LocationCard.css'
 import SandtonImage from '../assets/Sandton.jpg'
 import JohannesburgImage from '../assets/Johannesburg.jpg'
@@ -105,19 +107,21 @@ const getListingImage = (listing) => {
   return fallbackImages[hash % fallbackImages.length]
 }
 
-const LocationCard = ({ listing }) => {
+const LocationCard = ({ listing, selectedLocation }) => {
   const navigate = useNavigate()
   const imageUrl = getListingImage(listing)
   const amenities = listing.amenities || []
   const title = listing.title || listing.location
-  const locationName = listing.location?.split(',')[0] || 'your selected location'
-  const type = listing.type || 'Entire apartment'
+  const locationName = selectedLocation || listing.location?.split(',')[0] || 'your selected location'
+  const type = listing.type || 'Entire home'
   const rating = listing.rating || 4.5
   const reviews = Array.isArray(listing.reviews) ? listing.reviews.length : listing.reviews || 0
   const guests = listing.guests || 1
   const bedrooms = listing.bedrooms || 1
   const bathrooms = listing.bathrooms || 1
   const price = listing.price || 0
+  const isSaved = Number(reviews) > 0 && Number(reviews) % 2 === 0
+  const shownAmenities = amenities.length ? amenities.slice(0, 3) : ['Wifi', 'Kitchen', 'Free Parking']
 
   return (
     <article
@@ -129,13 +133,11 @@ const LocationCard = ({ listing }) => {
       </div>
 
       <div className="location_result_details">
-        <p className="location_result_type">{type}</p>
-        <h2>{locationName}</h2>
+        <p className="location_result_type">{type} in {locationName}</p>
+        <h2>{title}</h2>
         <div className="location_result_line" />
-        <p>{guests} guests - {type} - {bedrooms} bedroom{bedrooms === 1 ? '' : 's'} - {bathrooms} bathroom{bathrooms === 1 ? '' : 's'}</p>
-        {amenities.length > 0 && (
-          <p>{amenities.slice(0, 3).join(' - ')}</p>
-        )}
+        <p>{guests} guests - {type} - {bedrooms} bed{bedrooms === 1 ? '' : 's'} - {bathrooms} bath{bathrooms === 1 ? '' : ''}</p>
+        <p>{shownAmenities.join(' - ')}</p>
 
         <div className="location_result_rating">
           <span className="location_result_star" aria-hidden="true" />
@@ -147,14 +149,16 @@ const LocationCard = ({ listing }) => {
       <div className="location_result_side">
         <button
           type="button"
-          className="location_result_favorite"
+          className={`location_result_favorite ${isSaved ? 'is_saved' : ''}`}
           aria-label={`Save ${title}`}
           onClick={(event) => event.stopPropagation()}
-        />
+        >
+          {isSaved ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+        </button>
 
         <p className="location_result_price">
           <strong>${price}</strong>
-          <span>/ night</span>
+          <span>/night</span>
         </p>
       </div>
     </article>

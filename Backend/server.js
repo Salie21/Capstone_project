@@ -33,6 +33,16 @@ const frontendPath = path.join(
 // Serve static React files
 app.use(express.static(frontendPath));
 
+app.use((req, res) => {
+  if (req.path.startsWith("/api")) {
+    return res.status(404).json({
+      message: "API route not found",
+    });
+  }
+
+  res.sendFile(path.join(frontendPath, "index.html"));
+});
+
 // Create demo users with hashed passwords
 const createDemoUsers = async () => {
   const users = [
@@ -66,18 +76,6 @@ const createDemoUsers = async () => {
     }
   }
 };
-
-/*****
-app.get("*", (req, res) => {
-  if (req.path.startsWith("/api")) {
-    return res.status(404).json({
-      message: "API route not found",
-    });
-  }
-
-  res.sendFile(path.join(frontendPath, "index.html"));
-});
-*****/
 
 // Connect to MongoDB
 mongoose

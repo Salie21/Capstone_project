@@ -3,7 +3,7 @@
   z-index: 100;
   width: 100%;
   min-height: 80px;
-  padding: 0 32px;
+  padding: 12px 32px;
   box-sizing: border-box;
 }
 
@@ -17,6 +17,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 24px;
 }
 
 .header_logo {
@@ -57,6 +58,61 @@
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
   overflow: visible;
+}
+
+.header_top_search {
+  display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 280px;
+}
+
+.header_search_compact_form {
+  display: flex;
+  align-items: center;
+  width: min(100%, 380px);
+  min-height: 42px;
+  padding: 6px 12px;
+  gap: 8px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #dddddd;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.12);
+}
+
+.header_compact_search_input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  color: #222;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+}
+
+.header_compact_search_input::placeholder {
+  color: #111;
+  opacity: 1;
+}
+
+.header_search_compact_form .header_search_button {
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  background-color: #e62b52;
+}
+
+.header_search_compact_form .header_search_button:hover,
+.header_search_compact_form .header_search_button:focus-visible {
+  background-color: #e31c5f;
+}
+
+.header_search_compact_form .header_search_button svg {
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
 }
 
 .header_home .header_center {
@@ -678,6 +734,34 @@
     display: none;
   }
 
+  .header_top {
+    gap: 16px;
+  }
+
+  .header_top_search {
+    min-width: 220px;
+  }
+
+  .header_search_compact_form {
+    min-height: 50px;
+    padding: 5px 7px 5px 18px;
+  }
+
+  .header_compact_search_input {
+    font-size: 16px;
+  }
+
+  .header_search_compact_form .header_search_button {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header_search_compact_form .header_search_button svg {
+    width: 24px;
+    height: 24px;
+    font-size: 24px;
+  }
+
   .header_center,
   .header_home .header_center {
     width: 100%;
@@ -766,5 +850,21 @@
 
   .header_right a {
     display: none;
+  }
+
+  .header_top {
+    align-items: stretch;
+    flex-wrap: wrap;
+  }
+
+  .header_logo_link,
+  .header_right {
+    min-height: 56px;
+  }
+
+  .header_top_search {
+    order: 3;
+    flex-basis: 100%;
+    min-width: 0;
   }
 }

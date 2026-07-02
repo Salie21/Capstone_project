@@ -14,6 +14,7 @@ import WifiOutlinedIcon from '@mui/icons-material/WifiOutlined';
 import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheckedOutlined';
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
+import Badge from "../../assets/Badge.svg";
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
@@ -264,8 +265,6 @@ const ListingDetails = () => {
     bedrooms = 1,
     bathrooms = 1,
     amenities = [],
-    rating = 5,
-    reviews = 7,
     price = 0,
     title = "Beautiful getaway",
     host,
@@ -277,7 +276,9 @@ const ListingDetails = () => {
   } = listing;
 
   const hostName = getHostName(host);
-  const reviewCount = Array.isArray(reviews) ? reviews.length : reviews;
+  const displayRating = 4.9;
+  const displayReviewCount = 335;
+  const displayLocation = "Cape Town, South Africa";
   const nights = getNightCount(checkInDate, checkOutDate);
   const subtotal = price * nights;
   const total = subtotal - weeklyDiscount + cleaningFee + serviceFee + occupancyTaxes;
@@ -301,10 +302,10 @@ const ListingDetails = () => {
             <div className="listing-subtitle">
               <span className="rating-mark">
                 <GradeRoundedIcon />
-                {Number(rating).toFixed(1)}
+                {displayRating.toFixed(1)}
               </span>
-              <span>({reviewCount} reviews)</span>
-              <span>{location}</span>
+              <span className="listing-subtitle-link">({displayReviewCount} reviews)</span>
+              <span className="listing-subtitle-link">{displayLocation}</span>
             </div>
           </div>
           <div className="listing-actions">
@@ -322,7 +323,6 @@ const ListingDetails = () => {
           {displayImages.slice(1, 5).map((src, index) => (
             <img key={src + index} src={src} alt={`${title} ${index + 2}`} />
           ))}
-          <button className="show-photos-btn" type="button">Show all photos</button>
         </div>
 
         <div className="listing-body">
@@ -334,7 +334,10 @@ const ListingDetails = () => {
                   {guests} guests - {bedrooms} bedroom{bedrooms !== 1 ? "s" : ""} - {bathrooms} bathroom{bathrooms !== 1 ? "s" : ""}
                 </p>
               </div>
-              <div className="host-avatar">{hostName.charAt(0)}</div>
+              <div className="host-avatar-wrap">
+                <div className="host-avatar">{hostName.charAt(0)}</div>
+                <img className="host-badge" src={Badge} alt="Verified host badge" />
+              </div>
             </section>
 
             <section className="feature-list">
@@ -445,7 +448,7 @@ const ListingDetails = () => {
             </section>
 
             <section className="listing-section">
-              <h3> <GradeRoundedIcon/>{Number(rating).toFixed(1)} - {reviewCount} reviews</h3>
+              <h3> <GradeRoundedIcon/>{displayRating.toFixed(1)} - {displayReviewCount} reviews</h3>
               <div className="ratings-bars">
                 {ratingRows.map(([label, value]) => (
                   <div className="rating-bar-row" key={label}>
@@ -470,11 +473,14 @@ const ListingDetails = () => {
                   </article>
                 ))}
               </div>
-              <button className="outline-btn" type="button">Show all {reviewCount} reviews</button>
+              <button className="outline-btn" type="button">Show all {displayReviewCount} reviews</button>
             </section>
 
             <section className="listing-section host-profile">
-              <div className="host-avatar large">{hostName.charAt(0)}</div>
+              <div className="host-avatar-wrap host-avatar-wrap-large">
+                <div className="host-avatar large">{hostName.charAt(0)}</div>
+                <img className="host-badge host-badge-large" src={Badge} alt="Verified host badge" />
+              </div>
               <div>
                 <h3>Hosted by {hostName}</h3>
                 <p className="muted">Joined in May 2021</p>
@@ -483,31 +489,34 @@ const ListingDetails = () => {
               </div>
             </section>
 
-            <section className="listing-section things-grid">
-              <div>
-                <h3>House rules</h3>
-                <p>Check-in after 4:00 PM</p>
-                <p>Checkout before 10:00 AM</p>
-                <p>No smoking</p>
-              </div>
-              <div>
-                <h3>Health & safety</h3>
-                <p>Committed to enhanced cleaning.</p>
-                <p>Smoke alarm installed.</p>
-                <p>Carbon monoxide alarm installed.</p>
-              </div>
-              <div>
-                <h3>Cancellation policy</h3>
-                <p>Free cancellation for 48 hours.</p>
-                <button className="text-link" type="button">Show more</button>
+            <section className="listing-section things-section">
+              <h3>Things to know</h3>
+              <div className="things-grid">
+                <div>
+                  <h4>House rules</h4>
+                  <p>Check-in after 4:00 PM</p>
+                  <p>Checkout before 10:00 AM</p>
+                  <p>No smoking</p>
+                </div>
+                <div>
+                  <h4>Health & safety</h4>
+                  <p>Committed to enhanced cleaning.</p>
+                  <p>Smoke alarm installed.</p>
+                  <p>Carbon monoxide alarm installed.</p>
+                </div>
+                <div>
+                  <h4>Cancellation policy</h4>
+                  <p>Free cancellation for 48 hours.</p>
+                </div>
               </div>
             </section>
           </div>
 
+
           <aside className="booking-card">
             <div className="booking-card-header">
               <span className="booking-price">${price}<small> / night</small></span>
-              <span className="booking-rating">* {Number(rating).toFixed(1)} - {reviewCount} reviews</span>
+              <span className="booking-rating">* {displayRating.toFixed(1)} - {displayReviewCount} reviews</span>
             </div>
 
             <div className="booking-dates">
@@ -624,6 +633,53 @@ const ListingDetails = () => {
               </div>
             </div>
           </aside>
+        </div>
+      </section>
+
+      <section className="explore-options">
+        <div className="explore-options-inner">
+          <h2>Explore other options in France</h2>
+
+          <div className="explore-city-grid">
+            {[
+              ["Paris", "Lille", "Toulouse"],
+              ["Nice", "Aix-en-Provence", "Montpellier"],
+              ["Lyon", "Rouen", "Dijon"],
+              ["Marseille", "Amiens", "Grenoble"],
+            ].map((column, index) => (
+              <div className="explore-column" key={`city-${index}`}>
+                {column.map((item) => (
+                  <a href="#" key={item}>{item}</a>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <h3>Unique stays on Airbnb</h3>
+          <div className="explore-city-grid explore-stays-grid">
+            {[
+              ["Beach House Rentals", "Cabin Rentals"],
+              ["Camper Rentals", "Tiny House Rentals"],
+              ["Glamping Rentals", "Lakehouse Rentals"],
+              ["Treehouse Rentals", "Mountain Chalet Rentals"],
+            ].map((column, index) => (
+              <div className="explore-column" key={`stay-${index}`}>
+                {column.map((item) => (
+                  <a href="#" key={item}>{item}</a>
+                ))}
+              </div>
+            ))}
+          </div>
+
+          <nav className="explore-breadcrumbs" aria-label="Location breadcrumbs">
+            <a href="#">Airbnb</a>
+            <span>›</span>
+            <a href="#">Europe</a>
+            <span>›</span>
+            <a href="#">France</a>
+            <span>›</span>
+            <a href="#">Bordeaux</a>
+          </nav>
         </div>
       </section>
 

@@ -46,7 +46,7 @@ function App() {
           logoType={isHomePage ? "white" : "default"}
           variant={isHomePage ? "home" : "default"}
           locations={locations}
-          hideSearch={isListingPage}
+          compactSearch={isListingPage}
         />
       )}
       <Routes>
