@@ -1,3 +1,6 @@
+/* Check if the user exists and whether their role is allowed
+Restricts users based on roles
+*/
 const role = (allowedRoles) => {
   return (req, res, next) => {
     if (!req.user || !allowedRoles.includes(req.user.role)) {
