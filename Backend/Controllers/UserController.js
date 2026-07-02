@@ -1,7 +1,11 @@
+/*jwt is usedto securely transmit data between parties as a JSON object
+bcrypt is used to hash password in the database
+*/
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../Models/User");
 
+//Creates a token using a user id will expire in one day
 const createToken = (user) => {
   return jwt.sign(
     {
@@ -14,6 +18,7 @@ const createToken = (user) => {
   );
 };
 
+//Creates a new user, check if the user does not have duplicate accounts
 const signup = async (req, res) => {
   try {
     const { username, password, role } = req.body;
