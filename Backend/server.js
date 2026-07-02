@@ -67,9 +67,8 @@ const createDemoUsers = async () => {
   }
 };
 
-// React catch-all route
+/*****
 app.get("*", (req, res) => {
-  // Don't intercept API requests
   if (req.path.startsWith("/api")) {
     return res.status(404).json({
       message: "API route not found",
@@ -78,6 +77,7 @@ app.get("*", (req, res) => {
 
   res.sendFile(path.join(frontendPath, "index.html"));
 });
+*****/
 
 // Connect to MongoDB
 mongoose
