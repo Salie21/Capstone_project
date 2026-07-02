@@ -1,93 +1,235 @@
-# capstone_airbnb_project
+# AirBnB Capstone Project
 
+## Live Demo
+- **Backend (Heroku):** https://airbnb-capstone-salie-9582fe1bcad7.herokuapp.com
+- **Frontend (Render):** https://airbnb-frontend-salie.onrender.com
 
+## GitHub Repository
+https://github.com/Salie21/Capstone_project
 
-## Getting started
+---
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+## Project Overview
+A full-stack Airbnb clone application built with React.js, Node.js, Express.js, and MongoDB Atlas. The application allows users to browse property listings, view listing details, make reservations, and manage listings through an admin dashboard.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+---
 
-## Add your files
+## Tech Stack
 
-* [Create](https://docs.gitlab.com/user/project/repository/web_editor/#create-a-file) or [upload](https://docs.gitlab.com/user/project/repository/web_editor/#upload-a-file) files
-* [Add files using the command line](https://docs.gitlab.com/topics/git/add_files/#add-files-to-a-git-repository) or push an existing Git repository with the following command:
+### Frontend
+- React.js (Vite)
+- React Router DOM v7
+- Material UI (MUI) v9
+- Axios
+- CSS
 
+### Backend
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- bcryptjs
+- CORS
+- dotenv
+
+---
+
+## Features
+
+### Frontend (Airbnb Clone)
+- Home Page with Hero Banner
+- Inspiration Section with location cards
+- Future Getaways Section with tabs
+- Location Page showing listings filtered by location
+- Location Details Page with:
+  - Image gallery
+  - Dynamic cost calculator
+  - Date picker calendar
+  - Reservation functionality
+- Login Page with JWT authentication
+- Static Footer with links
+
+### Admin Dashboard
+- Login with role-based access (host/admin)
+- Create Listing with full form validation
+- View Listings with image display
+- Update Listing with pre-filled form
+- Delete Listing
+- View Reservations
+
+### Backend API
+- User authentication with JWT and bcrypt password hashing
+- Accommodation CRUD operations
+- Reservation management
+- Protected routes with middleware
+- Input validation
+
+---
+
+## Environment Configuration
+
+### Development
+Create a `.env` file in the `Backend` folder:
+MONGO_URI=mongodb+srv://username:password@cluster.mongodb.net/airbnb-clone?retryWrites=true&w=majority
+JWT_SECRET=your_secret_key
+PORT=5000
+
+Create a `.env` file in the `Frontend` folder:
+VITE_API_URL=http://localhost:5000
+
+### Production
+**Backend (Heroku Config Vars):**
+- `MONGO_URI` - MongoDB Atlas direct connection string
+- `JWT_SECRET` - JWT secret key
+- `PORT` - 5000
+
+**Frontend (Render Environment Variables):**
+- `VITE_API_URL` - Heroku backend URL
+
+---
+
+## Local Setup
+
+### Prerequisites
+- Node.js v20.x or higher
+- MongoDB Atlas account
+- Git
+
+### Backend Setup
+```bash
+cd Backend
+npm install
+npm run dev
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/Salie_ridwaan/capstone_airbnb_project.git
-git branch -M main
-git push -uf origin main
+
+### Frontend Setup
+```bash
+cd Frontend
+npm install
+npm run dev
 ```
 
-## Integrate with your tools
+---
 
-* [Set up project integrations](https://gitlab.com/Salie_ridwaan/capstone_airbnb_project/-/settings/integrations)
+## API Endpoints
 
-## Collaborate with your team
+### Users
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/api/users/signup` | Register a new user | No |
+| POST | `/api/users/login` | Login user | No |
 
-* [Invite team members and collaborators](https://docs.gitlab.com/user/project/members/)
-* [Create a new merge request](https://docs.gitlab.com/user/project/merge_requests/creating_merge_requests/)
-* [Automatically close issues from merge requests](https://docs.gitlab.com/user/project/issues/managing_issues/#closing-issues-automatically)
-* [Enable merge request approvals](https://docs.gitlab.com/user/project/merge_requests/approvals/)
-* [Set auto-merge](https://docs.gitlab.com/user/project/merge_requests/auto_merge/)
+### Accommodations
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| GET | `/api/accommodations` | Get all accommodations | No |
+| GET | `/api/accommodations/:id` | Get single accommodation | No |
+| GET | `/api/accommodations/host` | Get host accommodations | Yes |
+| POST | `/api/accommodations` | Create accommodation | Yes (host) |
+| PUT | `/api/accommodations/:id` | Update accommodation | Yes (host) |
+| DELETE | `/api/accommodations/:id` | Delete accommodation | Yes (host) |
 
-## Test and Deploy
+### Reservations
+| Method | Endpoint | Description | Auth |
+|---|---|---|---|
+| POST | `/api/reservations` | Create reservation | Yes |
+| GET | `/api/reservations/host` | Get host reservations | Yes (host) |
+| GET | `/api/reservations/user` | Get user reservations | Yes |
+| DELETE | `/api/reservations/:id` | Delete reservation | Yes |
 
-Use the built-in continuous integration in GitLab.
+---
 
-* [Get started with GitLab CI/CD](https://docs.gitlab.com/ci/quick_start/)
-* [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/user/application_security/sast/)
-* [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/topics/autodevops/requirements/)
-* [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/user/clusters/agent/)
-* [Set up protected environments](https://docs.gitlab.com/ci/environments/protected_environments/)
+## Project Structure
+capstone_airbnb_project/
+├── Backend/
+│   ├── Controllers/
+│   │   ├── accommodationController.js
+│   │   ├── reservationController.js
+│   │   └── userController.js
+│   ├── Models/
+│   │   ├── Accommodation.js
+│   │   ├── Reservation.js
+│   │   └── User.js
+│   ├── Routes/
+│   │   ├── accommodationRoutes.js
+│   │   ├── reservationRoutes.js
+│   │   └── userRoutes.js
+│   ├── Middleware/
+│   │   └── auth.js
+│   ├── .env
+│   └── server.js
+└── Frontend/
+├── public/
+│   └── assets/
+│       └── accommodation/
+├── src/
+│   ├── assets/
+│   │   └── accommodation/
+├── Components/
+│   ├── Header.jsx
+│   ├── Footer.jsx
+│   ├── AdminHeader.jsx
+│   ├── Banner.jsx
+│   ├── Inspiration.jsx
+│   ├── FutureGetaways.jsx
+│   └── LocationCard.jsx
+│   ├── context/
+│   │   └── AuthContext.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── Login.jsx
+│   │   ├── LocationPage.jsx
+│   │   ├── ListingDetails.jsx
+│   │   └── admin/
+│   │       ├── Dashboard.jsx
+│   │       ├── CreateListing.jsx
+│   │       ├── UpdateListing.jsx
+│   │       ├── ViewListings.jsx
+│   │       └── Reservations.jsx
+│   ├── App.jsx
+│   └── main.jsx
+└── package.json
 
-***
+---
 
-# Editing this README
+## Deployment
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+### Backend — Heroku
+1. Install Heroku CLI: `npm install -g heroku`
+2. Login: `heroku login`
+3. Add remote: `heroku git:remote -a airbnb-capstone-salie`
+4. Set environment variables in Heroku Dashboard → Settings → Config Vars
+5. Deploy: `git push heroku main`
 
-## Suggestions for a good README
+### Frontend — Render
+1. Go to [render.com](https://render.com)
+2. Click New → Static Site
+3. Connect GitHub repository
+4. Set Root Directory to `Frontend`
+5. Set Build Command to `npm install && npm run build`
+6. Set Publish Directory to `dist`
+7. Add environment variable `VITE_API_URL`
+8. Click Deploy
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+---
 
-## Name
-Choose a self-explaining name for your project.
+## Demo Users
+| Username | Password | Role |
+|---|---|---|
+| John Doe | password123 | user |
+| Jane Doe | password321 | host |
+| Ridwaan Salie | password123 | host |
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+---
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## Author
+**Ridwaan Salie**
+- GitHub: [Salie21](https://github.com/Salie21)
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+---
+- **Deployed App:** https://airbnb-frontend-salie.onrender.com
+- **GitHub:** https://github.com/Salie21/Capstone_project
+       
+ !     Push rejected, failed to compile Node.js app.
+ !     Push failed
