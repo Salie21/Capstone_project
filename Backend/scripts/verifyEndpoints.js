@@ -1,3 +1,6 @@
+/*creates a constant called API_URL that stores the backend server's URL
+File is used for testing 
+*/
 const API_URL = process.env.API_URL || "http://localhost:5000";
 
 const test = async (name, request, expectedStatus) => {
