@@ -1,9 +1,12 @@
+/* Import the Express framework and create a new router
+Import the auth controller and asweel for middleware for authentication and role-based authorization */
 const express = require("express");
 const router = express.Router();
 const accommodationController = require("../Controllers/AccommodationController");
 const auth = require("../Middleware/auth");
 const role = require("../Middleware/role");
 
+//Uses CRUD operations for accomadition to get, create, update and delete accomodations
 router.post("/", auth, role(["host"]), accommodationController.createAccommodation);
 
 router.get("/", accommodationController.getAllAccommodations);
