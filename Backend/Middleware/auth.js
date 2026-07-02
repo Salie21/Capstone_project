@@ -1,5 +1,7 @@
+// Import Json web token
 const jwt = require("jsonwebtoken");
 
+//Protect private routes 
 const auth = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
@@ -7,6 +9,7 @@ const auth = (req, res, next) => {
     return res.status(401).json({ message: "No token provided" });
   }
 
+    // Extract the token from the "Bearer <token>" format
   const token = authHeader.split(" ")[1];
 
   if (!token) {
@@ -14,6 +17,8 @@ const auth = (req, res, next) => {
   }
 
   try {
+    
+    // Verify the token using the application's secret key
     const decodedUser = jwt.verify(token, process.env.JWT_SECRET || "airbnb_secret_key");
     req.user = decodedUser;
     next();
