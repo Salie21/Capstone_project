@@ -1,5 +1,9 @@
+//Imports Mongoose to my project 
 const mongoose = require("mongoose");
 
+/*Create reservation fo booking information
+Information provided from the brief
+*/
 const reservationSchema = new mongoose.Schema(
   {
     bookedBy: {
@@ -39,6 +43,7 @@ const reservationSchema = new mongoose.Schema(
       default: 0,
     },
   },
+ // Automatically adds createdAt and updatedAt timestamps
   { timestamps: true }
 );
 
