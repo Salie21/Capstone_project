@@ -1,3 +1,4 @@
+// Import required packages
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -5,13 +6,16 @@ const bcrypt = require("bcryptjs");
 const dotenv = require("dotenv");
 const path = require("path");
 
+// Loads environment variables from the .env file
 dotenv.config();
 
+//User model and application routes
 const User = require("./Models/User");
 const userRoutes = require("./Routes/userRoutes");
 const accommodationRoutes = require("./Routes/accommodationRoutes");
 const reservationRoutes = require("./Routes/reservationRoutes");
 
+// Create the Express application
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -43,7 +47,8 @@ app.use((req, res) => {
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
-// Create demo users with hashed passwords
+
+// Create demo users with hashed passwords from document brief also used in the assignment
 const createDemoUsers = async () => {
   const users = [
     {
@@ -71,13 +76,14 @@ const createDemoUsers = async () => {
         ...user,
         password: hashedPassword,
       });
-
+      
+//Use to print out 
       console.log(`Demo user created: ${user.username}`);
     }
   }
 };
 
-// Connect to MongoDB
+// Connect to MongoDB and print out either Connected to MongoDB, Server running on port ${PORT 
 mongoose
   .connect(process.env.MONGO_URI, {
     serverSelectionTimeoutMS: 5000,
