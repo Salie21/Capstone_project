@@ -1,35 +1,27 @@
-// Import React to create the component
-import React from 'react';
+import React from 'react'
 
-// Import the CSS file for styling the Discover component
-import './Discover.css';
+// Imports the stylesheet for the Discover component
+import './Discover.css'
 
-// Discover component
+// Defines the Discover component
 const Discover = () => {
   return (
-    // Main section for the Discover page
-    <section className="discover_page">
-
-      {/* Main heading */}
-      <h2 className="discover_heading">
-        Discover Airbnb Experiences
-      </h2>
-
-      {/* Card on the right displaying in-person experiences */}
-      <div className="discover_card">
+    <section className='discover_page'>
+      <h2 className="discover_heading">Discover Airbnb Experiences</h2>
+      
+      {/* Card displaying in-person experiences */}
+      <div className='discover_card'>
         <h3>Things to do on your trip</h3>
         <button>Experiences</button>
       </div>
 
-      {/* Card on the left displaying online experiences */}
-      <div className="discover_container">
+      {/* Card displaying online experiences */}
+      <div className='discover_Container'>
         <h3>Things to do from home</h3>
         <button>Online Experiences</button>
       </div>
-
     </section>
-  );
-};
+  )
+}
 
-// Export the Discover component for use in other parts of the application
-export default Discover;
+export default Discover
