@@ -71,7 +71,6 @@ const Footer = () => {
         ))}
       </div>
       
-//Copyright section togther with imported icons 
       <div className="footer_copyright">
         <p>© 2022 Airbnb, Inc. · Privacy · Terms · Sitemap</p>
         <div className="footer_meta">
