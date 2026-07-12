@@ -641,11 +641,6 @@
   background-color: #f7f7f7;
 }
 
-.header_home .header_right a:hover,
-.header_home .header_language:hover {
-  background-color: #222;
-}
-
 .header_profile {
   display: flex;
   align-items: center;
@@ -716,8 +711,11 @@
 
 .header_profile_menu a:hover,
 .header_profile_menu button:hover,
-.header_profile_menu a.no_hover:hover {
-  background: transparent;
+.header_profile_menu a.no_hover:hover,
+.header_home .header_profile_menu a:hover,
+.header_home .header_profile_menu button:hover,
+.header_home .header_profile_menu a.no_hover:hover {
+  background: none;
   color: #222;
 }
 
