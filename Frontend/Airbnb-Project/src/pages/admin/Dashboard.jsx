@@ -4,8 +4,7 @@ import axios from 'axios'
 import { useAuth } from '../../context/AuthContext'
 import AdminHeader from '../../Components/AdminHeader'
 import './Dashboard.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import API_URL from '../../utils/api'
 const assetModules = import.meta.glob('../../assets/**/*.{jpg,jpeg,png,avif,webp}', {
   eager: true,
   import: 'default',

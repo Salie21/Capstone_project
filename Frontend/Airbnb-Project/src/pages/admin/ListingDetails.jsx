@@ -15,9 +15,8 @@ import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheck
 import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
 import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
 import Badge from "../../assets/Badge.svg";
+import API_URL from "../../utils/api";
 
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 const assetModules = import.meta.glob("../../assets/**/*.{jpg,jpeg,png,avif,webp}", {
   eager: true,
   import: "default",

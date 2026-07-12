@@ -3,8 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import LocationCard from '../Components/LocationCard.jsx'
 import './LocationPage.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import API_URL from '../utils/api'
 
 const LocationPage = () => {
   const [listings, setListings] = useState([])

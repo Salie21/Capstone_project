@@ -13,52 +13,29 @@ const tabs = [
   'Unique Stays',
 ]
 
+const landmarkDestinations = [
+  { city: 'Eiffel Tower', type: 'Paris, France' },
+  { city: 'Statue of Liberty', type: 'New York, USA' },
+  { city: 'Shibuya Crossing', type: 'Tokyo, Japan' },
+  { city: 'Big Ben', type: 'London, UK' },
+  { city: 'Colosseum', type: 'Rome, Italy' },
+  { city: 'Sydney Opera House', type: 'Sydney, Australia' },
+  { city: 'Table Mountain', type: 'Cape Town, South Africa' },
+  { city: 'Sagrada Familia', type: 'Barcelona, Spain' },
+  { city: 'Great Wall', type: 'Beijing, China' },
+  { city: 'Christ the Redeemer', type: 'Rio de Janeiro, Brazil' },
+  { city: 'Santorini', type: 'Santorini, Greece' },
+  { city: 'Grand Canyon', type: 'Arizona, USA' },
+]
+
 //containing destinations grouped by category
 const locations = {
-  'Destinations for arts & culture': [
-    { city: 'Eiffel Tower', type: 'Paris, France' },
-    { city: 'Statue of Liberty', type: 'New York, USA' },
-    { city: 'Shibuya Crossing', type: 'Tokyo, Japan' },
-    { city: 'Big Ben', type: 'London, UK' },
-    { city: 'Colosseum', type: 'Rome, Italy' },
-    { city: 'Sydney Opera House', type: 'Sydney, Australia' },
-    { city: 'Table Mountain', type: 'Cape Town, South Africa' },
-    { city: 'Sagrada Familia', type: 'Barcelona, Spain' },
-    { city: 'Great Wall', type: 'Beijing, China' },
-    { city: 'Christ the Redeemer', type: 'Rio de Janeiro, Brazil' },
-    { city: 'Santorini', type: 'Santorini, Greece' },
-    { city: 'Grand Canyon', type: 'Arizona, USA' },
-  ],
-  'Destinations for outdoor adventure': [
-    { city: 'Lake Tahoe', type: 'California' },
-    { city: 'Banff', type: 'Canada' },
-    { city: 'Moab', type: 'Utah' },
-    { city: 'Sedona', type: 'Arizona' },
-  ],
-  'Mountain cabins': [
-    { city: 'Aspen', type: 'Colorado' },
-    { city: 'Blue Ridge', type: 'Georgia' },
-    { city: 'Big Bear Lake', type: 'California' },
-    { city: 'Gatlinburg', type: 'Tennessee' },
-  ],
-  'Beach destinations': [
-    { city: 'Malibu', type: 'California' },
-    { city: 'Miami Beach', type: 'Florida' },
-    { city: 'Cancun', type: 'Mexico' },
-    { city: 'Cape Town', type: 'South Africa' },
-  ],
-  'Popular destinations': [
-    { city: 'Amsterdam', type: 'Netherlands' },
-    { city: 'New York', type: 'New York' },
-    { city: 'Paris', type: 'France' },
-    { city: 'Rome', type: 'Italy' },
-  ],
-  'Unique Stays': [
-    { city: 'Treehouses', type: 'United States' },
-    { city: 'Tiny homes', type: 'Worldwide' },
-    { city: 'Castles', type: 'Europe' },
-    { city: 'Domes', type: 'Worldwide' },
-  ],
+  'Destinations for arts & culture': landmarkDestinations,
+  'Destinations for outdoor adventure': landmarkDestinations,
+  'Mountain cabins': landmarkDestinations,
+  'Beach destinations': landmarkDestinations,
+  'Popular destinations': landmarkDestinations,
+  'Unique Stays': landmarkDestinations,
 }
 
 

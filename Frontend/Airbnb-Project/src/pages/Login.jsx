@@ -4,8 +4,7 @@ import { useAuth } from '../context/AuthContext'
 import axios from 'axios'
 import './Login.css'
 import logo from '../assets/airbnb.svg'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import API_URL from '../utils/api'
 
 const Login = () => {
   const [username, setUsername] = useState('')

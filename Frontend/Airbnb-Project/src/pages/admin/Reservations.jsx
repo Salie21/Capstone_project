@@ -3,8 +3,7 @@ import axios from 'axios'
 import AdminHeader from '../../Components/AdminHeader'
 import { useAuth } from '../../context/AuthContext'
 import './Reservations.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import API_URL from '../../utils/api'
 
 const formatReservationDate = (value) => {
   if (!value) {

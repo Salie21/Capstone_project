@@ -3,8 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import axios from 'axios'
 import LocationCard from '../Components/LocationCard.jsx'
 import './Locations.css'
-
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+import API_URL from '../utils/api'
 
 const Locations = () => {
   const [searchParams] = useSearchParams()
