@@ -638,7 +638,7 @@
 
 .header_right a:hover,
 .header_language:hover {
-  background-color: #f7f7f7;
+  background-color: transparent;
 }
 
 .header_profile {
