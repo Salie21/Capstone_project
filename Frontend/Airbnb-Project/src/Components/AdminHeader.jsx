@@ -35,9 +35,7 @@ const AdminHeader = () => {
         <img src={logo} alt="Airbnb logo" className="admin_logo" />
       </Link>
 
-      /*Display the welcome and user name 
-      Uses the imported mui icons
-      /*
+
       <div className="admin_profile_area">
         <span>Welcome, {getName(user)}</span>
         <button

@@ -1,28 +1,35 @@
-// Import React and the useState hook for managing component state
-import React, { useState } from 'react'
+// Import React to create the component
+import React from 'react';
 
-//Import styling sheet for the bannerr
-import './Banner.css'; 
+// Import the CSS file for styling the Banner component
+import './Banner.css';
 
-//Import mui-icon
+// Import the Material UI Button component
 import Button from '@mui/material/Button';
 
-
-//state variable called showSearch that controls whether the search bar (or search section) is visible. 
+// Banner component
 const Banner = () => {
-       const [showSearch, setShowSearch] = useState(false);
   return (
-    <div className='banner'>
-        <div className='banner_search'> {showSearch && <h1>Show date picker</h1>}
-               
-//Mui icon used for banner button 
-        <p className='banner_info'>Not sure where to go? Perfect.</p>
-        <Button className='banner_button'>I'm flexible</Button>
+    // Main banner container
+    <div className="banner">
 
-        
-        </div>
-        </div>
-  )
-}
+      {/* Container for the banner content */}
+      <div className="banner_search">
 
-export default Banner
+        {/* Display the banner message */}
+        <p className="banner_info">
+          Not sure where to go? Perfect.
+        </p>
+
+        {/* Material UI button displayed on the banner */}
+        <Button className="banner_button">
+          I'm flexible
+        </Button>
+
+      </div>
+    </div>
+  );
+};
+
+// Export the Banner component so it can be used in other files
+export default Banner;
