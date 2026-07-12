@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import AdminHeader from '../../Components/AdminHeader'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import './Reservations.css'
 import API_URL from '../../utils/api'
 

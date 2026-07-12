@@ -87,6 +87,11 @@
   text-decoration: none;
 }
 
+.admin_nav a:hover {
+  background: #fff;
+  color: #222;
+}
+
 .admin_main {
   padding: 28px 24px 80px;
 }

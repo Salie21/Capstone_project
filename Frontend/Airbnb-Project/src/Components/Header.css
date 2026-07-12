@@ -715,11 +715,7 @@
 }
 
 .header_profile_menu a:hover,
-.header_profile_menu button:hover {
-  background: #f7f7f7;
-  color: #222;
-}
-
+.header_profile_menu button:hover,
 .header_profile_menu a.no_hover:hover {
   background: transparent;
   color: #222;
@@ -852,7 +848,7 @@
     min-width: 200px;
   }
 
-  .header_right a {
+  .header_right > a {
     display: none;
   }
 
@@ -881,10 +877,15 @@
   }
 
   .header_profile_menu {
-    width: calc(100vw - 36px);
+    width: min(220px, calc(100vw - 36px));
     min-width: 0;
-    left: 0;
+    left: auto;
     right: 0;
+  }
+
+  .header_right .header_profile_menu a,
+  .header_right .header_profile_menu button {
+    display: block;
   }
 
   .header_logo_link,
@@ -918,10 +919,4 @@
     padding: 0 8px;
   }
 
-  .header_profile_menu {
-    width: calc(100vw - 36px);
-    min-width: 0;
-    left: 0;
-    right: 0;
-  }
 }

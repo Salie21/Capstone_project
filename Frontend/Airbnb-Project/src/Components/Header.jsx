@@ -7,7 +7,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import LanguageIcon from '@mui/icons-material/Language';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 
 const GuestsPopup = ({ adults, childrenCount, addGuest, removeGuest }) => {
   return (

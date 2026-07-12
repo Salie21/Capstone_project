@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../Components/Footer.jsx";
-import { useAuth } from "../../context/AuthContext.jsx";
+import { useAuth } from "../../context/useAuth";
 import "./ListingDetails.css";
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
@@ -10,10 +10,6 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import DoorBackOutlinedIcon from '@mui/icons-material/DoorBackOutlined';
 import CalendarTodayOutlinedIcon from '@mui/icons-material/CalendarTodayOutlined';
-import WifiOutlinedIcon from '@mui/icons-material/WifiOutlined';
-import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheckedOutlined';
-import VideocamOutlinedIcon from '@mui/icons-material/VideocamOutlined';
-import MopedOutlinedIcon from '@mui/icons-material/MopedOutlined';
 import Badge from "../../assets/Badge.svg";
 import API_URL from "../../utils/api";
 
@@ -113,15 +109,6 @@ const getFallbackListing = (id) => {
   return sampleListings.find((listing) => listing._id === id) || sampleListings[0];
 };
 
-const ratingRows = [
-  ["Cleanliness", 4.9],
-  ["Accuracy", 4.8],
-  ["Communication", 5.0],
-  ["Location", 4.7],
-  ["Check-in", 4.9],
-  ["Value", 4.8],
-];
-
 const todayInput = () => new Date().toISOString().slice(0, 10);
 
 const addDays = (dateValue, days) => {
@@ -210,6 +197,31 @@ const getHostName = (host) => {
   return host.username || host.name || "Ghazal";
 };
 
+const getReviewCount = (reviews) => {
+  if (Array.isArray(reviews)) {
+    return reviews.length;
+  }
+
+  return Number(reviews) || 0;
+};
+
+const getSpecificRatingRows = (specificRatings, rating) => {
+  const fallbackRating = Number(rating) || 4.5;
+  const labels = [
+    ["Cleanliness", "cleanliness"],
+    ["Accuracy", "accuracy"],
+    ["Communication", "communication"],
+    ["Location", "location"],
+    ["Check-in", "checkIn"],
+    ["Value", "value"],
+  ];
+
+  return labels.map(([label, key]) => [
+    label,
+    Number(specificRatings?.[key]) || fallbackRating,
+  ]);
+};
+
 const ListingDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -267,6 +279,9 @@ const ListingDetails = () => {
     price = 0,
     title = "Beautiful getaway",
     host,
+    rating = 4.5,
+    reviews = 0,
+    specificRatings,
     weeklyDiscount = 0,
     cleaningFee = 0,
     serviceFee = 0,
@@ -275,9 +290,12 @@ const ListingDetails = () => {
   } = listing;
 
   const hostName = getHostName(host);
-  const displayRating = 4.9;
-  const displayReviewCount = 335;
-  const displayLocation = "Cape Town, South Africa";
+  const displayRating = Number(rating) || 4.5;
+  const displayReviewCount = getReviewCount(reviews);
+  const displayLocation = location || "New York";
+  const locationName = displayLocation.split(",")[0] || displayLocation;
+  const regionName = displayLocation.split(",").slice(1).join(",").trim() || displayLocation;
+  const displayRatingRows = getSpecificRatingRows(specificRatings, displayRating);
   const nights = getNightCount(checkInDate, checkOutDate);
   const subtotal = price * nights;
   const total = subtotal - weeklyDiscount + cleaningFee + serviceFee + occupancyTaxes;
@@ -293,7 +311,8 @@ const ListingDetails = () => {
     : ["Wifi", "Kitchen", "Free parking", "TV", "Air conditioning", "Dedicated workspace", "Washer", "Private entrance"];
 
   return (
-    <main className="listing-page">
+      <main className="listing-page">
+        {error && <p className="listing-status listing-status-error">{error}</p>}
       <section className="listing-container">
         <div className="listing-title-row">
           <div>
@@ -344,7 +363,7 @@ const ListingDetails = () => {
             <section className="feature-list">
               <div className="feature-item">
                 <HomeOutlinedIcon/>
-                <strong>Entire home</strong>
+                <strong>{type}</strong>
                 <span>You will have the accommodation to yourself.</span>
               </div>
               <div className="feature-item">
@@ -359,7 +378,7 @@ const ListingDetails = () => {
               </div>
               <div className="feature-item">
                 <CalendarTodayOutlinedIcon/>
-                <strong>Free cancellation before Feb 14</strong>
+                <strong>Free cancellation available</strong>
               </div>
             </section>
 
@@ -373,7 +392,7 @@ const ListingDetails = () => {
               <div className="sleep-card">
                 <img src={displayImages[1] || displayImages[0]} alt="Bedroom" />
                 <strong>Bedroom</strong>
-                <span>1 queen bed</span>
+                <span>{bedrooms} bedroom{bedrooms === 1 ? "" : "s"}</span>
               </div>
             </section>
 
@@ -391,7 +410,7 @@ const ListingDetails = () => {
             </section>
 
             <section className="listing-section">
-              <h3>{nights} night{nights === 1 ? "" : "s"} in {location.split(",")[0]}</h3>
+              <h3>{nights} night{nights === 1 ? "" : "s"} in {locationName}</h3>
               <p className="muted">{formatDate(checkInDate)} - {formatDate(checkOutDate)}</p>
               <div className="calendar-grid">
                 {[firstCalendar, secondCalendar].map((month) => (
@@ -451,7 +470,7 @@ const ListingDetails = () => {
             <section className="listing-section">
               <h3> <GradeRoundedIcon/>{displayRating.toFixed(1)} - {displayReviewCount} reviews</h3>
               <div className="ratings-bars">
-                {ratingRows.map(([label, value]) => (
+                {displayRatingRows.map(([label, value]) => (
                   <div className="rating-bar-row" key={label}>
                     <span>{label}</span>
                     <div className="rating-bar-track">
@@ -580,7 +599,7 @@ const ListingDetails = () => {
                     },
                     body: JSON.stringify({
                       bookedBy: user.username || user.name || 'Guest',
-                      property: location.split(',')[0] || title,
+                      property: locationName || title,
                       checkin: checkInDate,
                       checkout: checkOutDate,
                       guests: selectedGuests,
@@ -641,7 +660,7 @@ const ListingDetails = () => {
 
       <section className="explore-options">
         <div className="explore-options-inner">
-          <h2>Explore other options in France</h2>
+          <h2>Explore other options in {regionName}</h2>
 
           <div className="explore-city-grid">
             {[

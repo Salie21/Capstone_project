@@ -136,7 +136,7 @@ const LocationCard = ({ listing, selectedLocation }) => {
         <p className="location_result_type">{type} in {locationName}</p>
         <h2>{title}</h2>
         <div className="location_result_line" />
-        <p>{guests} guests - {type} - {bedrooms} bed{bedrooms === 1 ? '' : 's'} - {bathrooms} bath{bathrooms === 1 ? '' : ''}</p>
+        <p>{guests} guest{guests === 1 ? '' : 's'} - {type} - {bedrooms} bed{bedrooms === 1 ? '' : 's'} - {bathrooms} bath{bathrooms === 1 ? '' : 's'}</p>
         <p>{shownAmenities.join(' - ')}</p>
 
         <div className="location_result_rating">

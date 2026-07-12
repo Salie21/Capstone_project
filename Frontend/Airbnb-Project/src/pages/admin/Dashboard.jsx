@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import AdminHeader from '../../Components/AdminHeader'
 import './Dashboard.css'
 import API_URL from '../../utils/api'
@@ -43,7 +43,7 @@ const Dashboard = () => {
     return assetMap[imageName] || firstImage
   }
 
-  const loadListings = async () => {
+  const loadListings = useCallback(async () => {
     if (!token) {
       setLoading(false)
       return
@@ -79,7 +79,7 @@ const Dashboard = () => {
     } finally {
       setLoading(false)
     }
-  }
+  }, [token])
 
   const deleteListing = async (listingId) => {
     setDeletingId(listingId)
@@ -102,7 +102,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     loadListings()
-  }, [token])
+  }, [loadListings])
 
   return (
     <div className="admin_page">
@@ -145,7 +145,7 @@ const Dashboard = () => {
                 <h2>{listing.title}</h2>
                 <div className="admin_listing_line" />
                 <span>
-                  {listing.guests || 0} guests - {listing.type || 'Property'} - {listing.bedrooms || 0} bedroom{listing.bedrooms === 1 ? '' : 's'} - {listing.bathrooms || 0} bathroom{listing.bathrooms === 1 ? '' : 's'}
+                  {listing.guests || 0} guest{listing.guests === 1 ? '' : 's'} - {listing.type || 'Property'} - {listing.bedrooms || 0} bedroom{listing.bedrooms === 1 ? '' : 's'} - {listing.bathrooms || 0} bathroom{listing.bathrooms === 1 ? '' : 's'}
                 </span>
                 {listing.amenities?.length > 0 && (
                   <span>Amenities: {listing.amenities.slice(0, 3).join(', ')}</span>

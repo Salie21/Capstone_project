@@ -77,6 +77,11 @@
   text-decoration: none;
 }
 
+.view_listings_nav a:hover {
+  background: #fff;
+  color: #222;
+}
+
 .view_listings_content {
   padding: 28px 24px 80px;
 }

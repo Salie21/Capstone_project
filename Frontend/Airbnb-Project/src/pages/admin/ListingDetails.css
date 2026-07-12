@@ -18,6 +18,13 @@
   text-align: center;
 }
 
+.listing-status-error {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 16px 24px 0;
+  color: #d93025;
+}
+
 .listing-title-row {
   display: flex;
   align-items: flex-start;

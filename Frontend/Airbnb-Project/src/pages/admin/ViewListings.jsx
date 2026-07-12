@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import AdminHeader from '../../Components/AdminHeader'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../context/useAuth'
 import fallbackListingImage from '../../assets/accommodation/Tablemountain.avif'
 import './ViewListings.css'
 import API_URL from '../../utils/api'
@@ -51,7 +51,7 @@ const ViewListings = () => {
     event.currentTarget.src = fallbackImage
   }
 
-  const getListings = async () => {
+  const getListings = useCallback(async () => {
     try {
       const headers = { Authorization: `Bearer ${token}` }
       const response = await axios.post(`${API_URL}/api/accommodations/host/claim-featured`, {}, { headers })
@@ -68,7 +68,7 @@ const ViewListings = () => {
         setError('Could not load listings')
       }
     }
-  }
+  }, [token])
 
   const deleteListing = async (listingId) => {
     setDeletingId(listingId)
@@ -95,7 +95,7 @@ const ViewListings = () => {
     if (token) {
       getListings()
     }
-  }, [token])
+  }, [getListings, token])
 
   return (
     <div className="view_listings">
@@ -126,7 +126,7 @@ const ViewListings = () => {
                 <p>{listing.type || 'Listing'} {listing.location ? `- ${listing.location}` : ''}</p>
                 <h2>{listing.title}</h2>
                 <span>
-                  {listing.guests || 0} guests - {listing.type || 'Property'} - {listing.bedrooms || 0} bedrooms - {listing.bathrooms || 0} bathrooms
+                  {listing.guests || 0} guest{listing.guests === 1 ? '' : 's'} - {listing.type || 'Property'} - {listing.bedrooms || 0} bedroom{listing.bedrooms === 1 ? '' : 's'} - {listing.bathrooms || 0} bathroom{listing.bathrooms === 1 ? '' : 's'}
                 </span>
                 {listing.amenities?.length > 0 && (
                   <span>Amenities: {listing.amenities.join(', ')}</span>

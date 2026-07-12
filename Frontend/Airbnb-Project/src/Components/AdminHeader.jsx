@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import MenuIcon from '@mui/icons-material/Menu'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle'
-import { useAuth } from '../context/AuthContext'
+import { useAuth } from '../context/useAuth'
 import logo from '../assets/airbnb.svg'
 import './AdminHeader.css'
 

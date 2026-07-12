@@ -80,7 +80,7 @@
 
 .admin_dropdown a:hover,
 .admin_dropdown button:hover {
-  background: #f7f7f7;
+  background: transparent;
 }
 
 @media (max-width: 720px) {

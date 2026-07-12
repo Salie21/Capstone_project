@@ -1,7 +1,7 @@
 // Import React Context API and hooks
-import { createContext, useState, useContext } from 'react';
+import { useState } from 'react';
+import { AuthContext } from './AuthContextValue';
 
-const AuthContext = createContext();
 
 // Authentication provider component
 // Makes authentication data available to all child components
@@ -34,5 +34,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(AuthContext);
